@@ -94,7 +94,7 @@ const INTERFACE_ID _FAT_disc_interfaces[] = {
 #elif defined (NDS)
 #include <nds/system.h>
 #include <nds/memory.h>
-#include <nds/arm9/dldi.h>
+#include <nds/arm9/dldi/dldi.h>
 
 const INTERFACE_ID _FAT_disc_interfaces[] = {
 	{"sd",  get_io_dsisd},
