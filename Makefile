@@ -40,17 +40,23 @@ OBJ_FILES = $(patsubst %,$(BUILD_DIR)/%,$(addsuffix .o,$(basename $(notdir $(SRC
 
 .PHONY: all build rebuild clean install path_builder
 
-clean:
-	rm -fr $(BUILD_DIR) $(VERSION_HEADER_PATH)
-
 build: path_builder $(BIN_PATH)
 rebuild: clean build
+
+clean:
+	rm -fr $(BUILD_DIR) $(VERSION_HEADER_PATH)
 
 path_builder:
 	mkdir -p $(BUILD_DIR)
 
+PREFIX ?= /usr/lib
+
 install:
-	#TODO
+	install -d $(DESTDIR)$(PREFIX)/arm-none-eabi/include
+	cp -f include/fat.h $(DESTDIR)$(PREFIX)/arm-none-eabi/include
+	chmod -R 644 $(DESTDIR)$(PREFIX)/arm-none-eabi/include/fat.h
+	install -d $(DESTDIR)$(PREFIX)/arm-none-eabi/lib
+	install -m 644 $(BIN_PATH) $(DESTDIR)$(PREFIX)/arm-none-eabi/lib
 
 $(BIN_PATH): $(VERSION_HEADER_PATH) $(OBJ_FILES)
 	$(AR) $(ARFLAGS) $(BIN_PATH) $(OBJ_FILES)
