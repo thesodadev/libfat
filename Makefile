@@ -38,10 +38,10 @@ BIN_PATH = $(BUILD_DIR)/$(BIN_NAME)
 SRC_FILES = $(wildcard $(SOURCE_DIR)/*.c)
 OBJ_FILES = $(patsubst %,$(BUILD_DIR)/%,$(addsuffix .o,$(basename $(notdir $(SRC_FILES)))))
 
-.PHONY: all build rebuild clean install path_builder
+.PHONY: all rebuild clean install path_builder
 
-build: path_builder $(BIN_PATH)
-rebuild: clean build
+all: path_builder $(BIN_PATH)
+rebuild: clean all
 
 clean:
 	rm -fr $(BUILD_DIR) $(VERSION_HEADER_PATH)
